@@ -1,54 +1,44 @@
-import {
-  StyleSheet,
-  SafeAreaView,
-  View,
-  Text,
-  Image,
-  TouchableWithoutFeedback,
-  Platform,
-} from "react-native";
-import React from "react";
-import { useMemo, useCallback } from "react";
+import React, { PureComponent } from "react";
+import { View, Text, TouchableWithoutFeedback, StyleSheet } from "react-native";
 import { SvgUri } from "react-native-svg";
 import { POKEMON_TYPES_COLORS } from "../utils/constants";
 
-export default function PokemonCard({ pokemon }) {
-  const types = useMemo(
-    () => pokemon.types.map((type) => type.type.name),
-    [pokemon.types]
-  );
-  const onPress = useCallback(() => console.log(pokemon.name), [pokemon.name]);
+class PurePokemonCard extends PureComponent {
+  render() {
+    const { pokemon, onPress } = this.props;
+    const types = pokemon.types.map((type) => type.type.name);
 
-  return (
-    <TouchableWithoutFeedback onPress={onPress}>
-      <View style={styles.card}>
-        <View style={styles.cardHeader}>
-          <Text style={styles.cardNumber}>{pokemon.number}</Text>
-          <Text style={styles.cardName}>{pokemon.name}</Text>
+    return (
+      <TouchableWithoutFeedback onPress={onPress}>
+        <View style={styles.card}>
+          <View style={styles.cardHeader}>
+            <Text style={styles.cardNumber}>{pokemon.number}</Text>
+            <Text style={styles.cardName}>{pokemon.name}</Text>
+          </View>
+          <View style={styles.cardBody}>
+            {types.map((type, index) => (
+              <View
+                key={index}
+                style={[
+                  styles.cardBodyType,
+                  { backgroundColor: POKEMON_TYPES_COLORS[type] },
+                  index === 1 && { top: 20 },
+                ]}
+              >
+                <Text style={styles.cardBodyTypeText}>{type}</Text>
+              </View>
+            ))}
+            <SvgUri
+              uri={pokemon.picture}
+              width={100}
+              height={100}
+              style={styles.cardBodyImage}
+            />
+          </View>
         </View>
-        <View style={styles.cardBody}>
-          {types.map((type, index) => (
-            <View
-              key={index}
-              style={[
-                styles.cardBodyType,
-                { backgroundColor: POKEMON_TYPES_COLORS[type] },
-                index === 1 && { top: 20 },
-              ]}
-            >
-              <Text style={styles.cardBodyTypeText}>{type}</Text>
-            </View>
-          ))}
-          <SvgUri
-            uri={pokemon.picture}
-            width={100}
-            height={100}
-            style={styles.cardBodyImage}
-          />
-        </View>
-      </View>
-    </TouchableWithoutFeedback>
-  );
+      </TouchableWithoutFeedback>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -113,3 +103,5 @@ const styles = StyleSheet.create({
     width: "100%",
   },
 });
+
+export default PurePokemonCard;

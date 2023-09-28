@@ -1,5 +1,5 @@
 import react from "react";
-import { Image } from "react-native";
+import { Animated, Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import FavoritesScreen from "../screens/Favorites";
@@ -17,7 +17,9 @@ const Navigation = () => {
         options={{
           tabBarLabel: "Favorites",
           tabBarIcon: () => <Icon name="heart" size={26} color="#000" />,
-          headerStyle: { backgroundColor: "#ff6b56" },
+          headerStyle: {
+            backgroundColor: "#ff6b56",
+          },
           headerTintColor: "#fff",
           headerTitleStyle: { fontWeight: "bold" },
           headerTitleAlign: "center",
@@ -30,8 +32,8 @@ const Navigation = () => {
         options={{
           tabBarLabel: "",
           tabBarIcon: () => renderPokeball(),
-          headerStyle: { backgroundColor: "#ff6b56" },
-          headerTintColor: "#fff",
+          headerStyle: { height: 60 },
+          headerTintColor: "black",
           headerTitleStyle: { fontWeight: "bold" },
           headerTitleAlign: "center",
           headerTitle: "Pokédex",
@@ -62,7 +64,7 @@ function renderPokeball() {
       style={{
         width: 75,
         height: 75,
-        top: -19,
+        top: -18.5,
       }}
     />
   );

@@ -54,7 +54,7 @@ export default function PokemonCard({ pokemon }) {
 const styles = StyleSheet.create({
   card: {
     width: "47%",
-    height: 200,
+    height: 135,
     backgroundColor: "#fff",
     borderRadius: 10,
     marginHorizontal: 5,
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   cardBody: {
     flex: 1,
     justifyContent: "center",
-    alignItems: "center",
+    alignItems: "flex-end",
   },
   cardBodyType: {
     position: "absolute",

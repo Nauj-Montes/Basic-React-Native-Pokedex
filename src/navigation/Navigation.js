@@ -32,11 +32,8 @@ const Navigation = () => {
         options={{
           tabBarLabel: "",
           tabBarIcon: () => renderPokeball(),
-          headerStyle: { height: 60 },
-          headerTintColor: "black",
-          headerTitleStyle: { fontWeight: "bold" },
-          headerTitleAlign: "center",
-          headerTitle: "Pokédex",
+          headerTransparent: true,
+          headerTitle: "",
         }}
       />
 

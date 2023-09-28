@@ -1,6 +1,11 @@
 import React, { PureComponent } from "react";
-import { View, Text, TouchableWithoutFeedback, StyleSheet } from "react-native";
-import { SvgUri } from "react-native-svg";
+import {
+  View,
+  Text,
+  TouchableWithoutFeedback,
+  StyleSheet,
+  Image,
+} from "react-native";
 import { POKEMON_TYPES_COLORS } from "../utils/constants";
 
 class PurePokemonCard extends PureComponent {
@@ -28,11 +33,9 @@ class PurePokemonCard extends PureComponent {
                 <Text style={styles.cardBodyTypeText}>{type}</Text>
               </View>
             ))}
-            <SvgUri
-              uri={pokemon.picture}
-              width={100}
-              height={100}
+            <Image
               style={styles.cardBodyImage}
+              source={{ uri: pokemon.picture }}
             />
           </View>
         </View>
@@ -100,7 +103,8 @@ const styles = StyleSheet.create({
   },
   cardBodyImage: {
     aspectRatio: 1,
-    width: "100%",
+    width: 120,
+    height: 120,
   },
 });
 

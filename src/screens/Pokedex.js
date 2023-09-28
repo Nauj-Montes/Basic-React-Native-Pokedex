@@ -17,6 +17,7 @@ export default function Pokedex() {
     try {
       const response = await getPokemonsApi(nextUrl);
       setNextUrl(response.next);
+      console.log(response);
 
       const pokemonsArray = [];
       for await (const pokemon of response.results) {
@@ -27,7 +28,8 @@ export default function Pokedex() {
           number: `#${pokemonResponse.id.toString().padStart(3, "0")}`,
           next: pokemonResponse.next,
           name: pokemonResponse.name,
-          picture: pokemonResponse.sprites.other.dream_world.front_default,
+          picture: pokemonResponse.sprites.other.home.front_default,
+          svg: pokemonResponse.sprites.other.dream_world.front_default,
           types: pokemonResponse.types,
           height: pokemonResponse.height,
           weight: pokemonResponse.weight,

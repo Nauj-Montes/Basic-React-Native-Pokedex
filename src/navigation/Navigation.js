@@ -1,5 +1,4 @@
-import react from "react";
-import { Animated, Image } from "react-native";
+import { Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import FavoritesScreen from "../screens/Favorites";

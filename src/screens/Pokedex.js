@@ -1,4 +1,3 @@
-import { SafeAreaView, Text } from "react-native";
 import React, { useState, useEffect } from "react";
 import { getPokemonsApi, getPokemonApi } from "../api/pokemon";
 import PokemonList from "../components/PokemonList";
@@ -17,7 +16,6 @@ export default function Pokedex() {
     try {
       const response = await getPokemonsApi(nextUrl);
       setNextUrl(response.next);
-      console.log(response);
 
       const pokemonsArray = [];
       for await (const pokemon of response.results) {
@@ -26,7 +24,7 @@ export default function Pokedex() {
         pokemonsArray.push({
           id: pokemonResponse.id,
           number: `#${pokemonResponse.id.toString().padStart(3, "0")}`,
-          next: pokemonResponse.next,
+          next: null,
           name: pokemonResponse.name,
           picture: pokemonResponse.sprites.other.home.front_default,
           svg: pokemonResponse.sprites.other.dream_world.front_default,
@@ -41,9 +39,5 @@ export default function Pokedex() {
     }
   };
 
-  return (
-    <SafeAreaView>
-      <PokemonList pokemons={pokemons} loadPokemons={loadPokemons} />
-    </SafeAreaView>
-  );
+  return <PokemonList pokemons={pokemons} loadPokemons={loadPokemons} />;
 }

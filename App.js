@@ -1,22 +1,31 @@
-import { StatusBar } from "expo-status-bar";
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import Navigation from "./src/navigation/Navigation";
+import { createStackNavigator } from "@react-navigation/stack";
+import PokemonScreen from "./src/screens/Pokemon";
+
+const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Navigation />
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Navigation"
+          component={Navigation}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Pokemon"
+          component={PokemonScreen}
+          options={{
+            title: "",
+            headerShown: true,
+            headerTransparent: true,
+            headerShadowVisible: false,
+          }}
+        />
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

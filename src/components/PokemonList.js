@@ -1,35 +1,30 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import { StyleSheet, ActivityIndicator, FlatList } from "react-native";
 import PokemonCard from "./PokemonCard";
 
-class PurePokemonList extends PureComponent {
-  render() {
-    const { pokemons, loadPokemons } = this.props;
-    const loadMore = () => loadPokemons();
+const PokemonList = ({ pokemons, loadPokemons }) => {
+  const loadMore = () => loadPokemons();
 
-    return (
-      <FlatList
-        data={pokemons}
-        numColumns={2}
-        keyExtractor={(pokemon) => String(pokemon.id)}
-        renderItem={({ item }) => <PokemonCard pokemon={item} />}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.flatListContentContainer}
-        onEndReached={loadMore}
-        onEndReachedThreshold={0.1}
-        ListFooterComponent={
-          <ActivityIndicator
-            size="large"
-            style={styles.ActivityIndicator}
-            color={"#AEAEAE"}
-          />
-        }
-      />
-    );
-  }
-}
-
-export default PurePokemonList;
+  return (
+    <FlatList
+      data={pokemons}
+      numColumns={2}
+      keyExtractor={(pokemon) => String(pokemon.id)}
+      renderItem={({ item }) => <PokemonCard pokemon={item} />}
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={styles.flatListContentContainer}
+      onEndReached={loadMore}
+      onEndReachedThreshold={0.1}
+      ListFooterComponent={
+        <ActivityIndicator
+          size="large"
+          style={styles.ActivityIndicator}
+          color="#AEAEAE"
+        />
+      }
+    />
+  );
+};
 
 const styles = StyleSheet.create({
   flatListContentContainer: {
@@ -41,3 +36,5 @@ const styles = StyleSheet.create({
     marginBottom: 60,
   },
 });
+
+export default PokemonList;

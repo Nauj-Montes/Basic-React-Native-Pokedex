@@ -71,10 +71,9 @@ const style = StyleSheet.create({
   PokemonNumber: {
     fontWeight: "bold",
     color: "white",
-    paddingTop: 10,
     fontSize: 18,
     position: "absolute",
-    top: 40,
+    top: 46,
     right: 20,
     textShadowColor: "rgba(0, 0, 0, 0.15)",
     textShadowOffset: { width: -1, height: 1 },
@@ -93,3 +92,5 @@ const style = StyleSheet.create({
     top: -40,
   },
 });
+
+//TODO: Separate the styles from the component

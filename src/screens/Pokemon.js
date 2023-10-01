@@ -2,7 +2,7 @@ import { ScrollView } from "react-native";
 import React, { useState, useEffect } from "react";
 import { getPokemonInfoApi } from "../api/pokemon";
 import Header from "../components/Pokemon/Header";
-import { POKEMON_TYPES_COLORS } from "../utils/constants";
+import Types from "../components/Pokemon/Types";
 
 export default function PokemonInfo(props) {
   const {
@@ -33,6 +33,7 @@ export default function PokemonInfo(props) {
         image={pokemon.sprites.other.home.front_default}
         types={pokemon.types.map((type) => type.type.name)}
       />
+      <Types types={pokemon.types.map((type) => type.type.name)} />
     </ScrollView>
   );
 }

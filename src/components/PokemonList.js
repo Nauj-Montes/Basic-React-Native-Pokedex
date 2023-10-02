@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { StyleSheet, ActivityIndicator, FlatList } from "react-native";
 import PokemonCard from "./PokemonCard";
 
 const PokemonList = ({ pokemons, loadPokemons }) => {
-  const loadMore = () => loadPokemons();
+  const loadMore = useCallback(() => loadPokemons(), [loadPokemons]);
 
   return (
     <FlatList
@@ -18,10 +18,12 @@ const PokemonList = ({ pokemons, loadPokemons }) => {
       ListFooterComponent={
         <ActivityIndicator
           size="large"
-          style={{ marginTop: 20, marginBottom: 60 }}
+          style={styles.ActivityIndicator}
           color="#AEAEAE"
         />
       }
+      initialNumToRender={10} // Adjust the number as needed
+      removeClippedSubviews={true} // Unmount components when outside of window
     />
   );
 };
@@ -33,4 +35,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PokemonList;
+export default React.memo(PokemonList);

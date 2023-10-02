@@ -1,14 +1,8 @@
 import React, { useCallback } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  Image,
-  FlatList,
-  Dimensions,
-} from "react-native";
-import PropTypes from "prop-types"; // Import PropTypes for type checking
+import { View, Text, TouchableOpacity, Image, Dimensions } from "react-native";
+import PropTypes from "prop-types";
 import { useNavigation } from "@react-navigation/native";
+import { Image as ExpoImage } from "react-native-expo-image-cache";
 import { POKEMON_TYPES_COLORS } from "../utils/constants";
 import { styles } from "../styles/PokemonCardStyles";
 
@@ -43,18 +37,23 @@ const CardBody = ({ types, picture }) => {
           style={[
             styles.cardBodyType,
             { backgroundColor: POKEMON_TYPES_COLORS[type.type.name] },
-            isTwoTypes && index === 1 && { top: 24 }, // Apply top style for the second type in two types scenario
+            isTwoTypes && index === 1 && { top: 24 },
           ]}
         >
           <Text style={styles.cardBodyTypeText}>{type.type.name}</Text>
         </View>
       ))}
-      <Image style={styles.cardBodyImage} source={{ uri: picture }} />
+      <ExpoImage
+        style={styles.cardBodyImage}
+        preview={{ uri: picture }}
+        uri={picture}
+        tint={"transparent"}
+      />
     </View>
   );
 };
 
-const PokemonCard = ({ pokemon }) => {
+const PokemonCard = React.memo(({ pokemon }) => {
   const navigation = useNavigation();
 
   const navigateToPokemon = useCallback(() => {
@@ -69,9 +68,8 @@ const PokemonCard = ({ pokemon }) => {
       </View>
     </TouchableOpacity>
   );
-};
+});
 
-// Define prop types for better type checking
 PokemonCard.propTypes = {
   pokemon: PropTypes.shape({
     number: PropTypes.string.isRequired,

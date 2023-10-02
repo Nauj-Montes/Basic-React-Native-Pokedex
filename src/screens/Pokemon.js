@@ -21,7 +21,7 @@ export default function PokemonInfo(props) {
           name="arrow-left"
           size={20}
           color="#fff"
-          style={{ marginLeft: 20, marginTop: 10 }}
+          style={{ marginLeft: 20, marginTop: 1 }}
           onPress={() => navigation.goBack()}
         />
       ),

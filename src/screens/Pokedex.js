@@ -27,10 +27,10 @@ export default function Pokedex() {
             next: null,
             name: pokemonResponse.name,
             picture: pokemonResponse.sprites.other.home.front_default,
-            svg: pokemonResponse.sprites.other.dream_world.front_default,
             types: pokemonResponse.types,
             height: pokemonResponse.height,
             weight: pokemonResponse.weight,
+            order: pokemonResponse.count,
           };
         })
       );

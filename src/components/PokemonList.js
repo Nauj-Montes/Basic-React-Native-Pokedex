@@ -22,8 +22,8 @@ const PokemonList = ({ pokemons, loadPokemons }) => {
           color="#AEAEAE"
         />
       }
-      initialNumToRender={10} // Adjust the number as needed
-      removeClippedSubviews={true} // Unmount components when outside of window
+      initialNumToRender={10}
+      removeClippedSubviews={true}
     />
   );
 };

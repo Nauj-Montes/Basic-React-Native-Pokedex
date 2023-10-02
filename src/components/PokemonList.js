@@ -18,7 +18,7 @@ const PokemonList = ({ pokemons, loadPokemons }) => {
       ListFooterComponent={
         <ActivityIndicator
           size="large"
-          style={styles.ActivityIndicator}
+          style={{ marginTop: 20, marginBottom: 60 }}
           color="#AEAEAE"
         />
       }
@@ -30,10 +30,6 @@ const styles = StyleSheet.create({
   flatListContentContainer: {
     paddingVertical: 20,
     paddingHorizontal: 10,
-  },
-  ActivityIndicator: {
-    marginTop: 20,
-    marginBottom: 60,
   },
 });
 

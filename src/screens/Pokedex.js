@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useQueryClient } from "react-query";
+import { getPokemonsApi, getPokemonApi } from "../api/pokemon";
 import PokemonList from "../components/PokemonList";
-import { getPokemonsApi, getPokemonApi } from "../api/pokemonAPI";
 
 export default function Pokedex() {
-  const queryClient = useQueryClient();
   const [pokemons, setPokemons] = useState([]);
   const [nextUrl, setNextUrl] = useState(null);
 
@@ -17,27 +15,16 @@ export default function Pokedex() {
   const loadPokemons = async () => {
     try {
       const response = await getPokemonsApi(nextUrl);
-
-      // Update the next URL for pagination
       setNextUrl(response.next);
 
-      const pokemonResponses = await Promise.all(
+      const pokemonsArray = await Promise.all(
         response.results.map(async (pokemon) => {
-          return await queryClient.fetchQuery(
-            ["pokemon", pokemon.url],
-            async () => getPokemonApi(pokemon.url)
-          );
-        })
-      );
+          const pokemonResponse = await getPokemonApi(pokemon.url);
 
-      // Combine new data with existing data
-      setPokemons((prevPokemons) => [
-        ...prevPokemons,
-        ...pokemonResponses.map((pokemonResponse) => {
           return {
             id: pokemonResponse.id,
             number: `#${pokemonResponse.id.toString().padStart(3, "0")}`,
-            next: response.next, // Update to the next URL
+            next: null,
             name: pokemonResponse.name,
             picture: pokemonResponse.sprites.other.home.front_default,
             types: pokemonResponse.types,
@@ -45,8 +32,10 @@ export default function Pokedex() {
             weight: pokemonResponse.weight,
             order: pokemonResponse.count,
           };
-        }),
-      ]);
+        })
+      );
+
+      setPokemons([...pokemons, ...pokemonsArray]);
     } catch (error) {
       console.log(error);
     }

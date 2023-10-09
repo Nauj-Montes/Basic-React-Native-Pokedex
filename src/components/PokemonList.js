@@ -9,7 +9,7 @@ const PokemonList = ({ pokemons, loadPokemons }) => {
     <FlatList
       data={pokemons}
       numColumns={2}
-      keyExtractor={(pokemon, index) => `${pokemon.id}-${index}`}
+      keyExtractor={(pokemon) => String(pokemon.id)}
       renderItem={({ item }) => <PokemonCard pokemon={item} />}
       showsVerticalScrollIndicator={false}
       contentContainerStyle={styles.flatListContentContainer}

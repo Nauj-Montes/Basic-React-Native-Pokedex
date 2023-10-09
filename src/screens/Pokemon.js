@@ -1,16 +1,10 @@
-import React, { useEffect } from "react";
 import { ScrollView } from "react-native";
-import { useQuery } from "react-query";
+import React, { useState, useEffect } from "react";
+import { getPokemonInfoApi } from "../api/pokemon";
 import Icon from "react-native-vector-icons/FontAwesome5";
 import Header from "../components/Pokemon/Header";
 import Types from "../components/Pokemon/Types";
 import Stats from "../components/Pokemon/Stats";
-import { getPokemonInfoApi } from "../api/pokemonAPI";
-
-const usePokemonInfo = (id) => {
-  const { data } = useQuery(["pokemon", id], async () => getPokemonInfoApi(id));
-  return data;
-};
 
 export default function PokemonInfo(props) {
   const {
@@ -18,7 +12,7 @@ export default function PokemonInfo(props) {
     navigation,
   } = props;
 
-  const pokemon = usePokemonInfo(params.id);
+  const [pokemon, setPokemon] = useState(null);
 
   useEffect(() => {
     navigation.setOptions({
@@ -34,17 +28,25 @@ export default function PokemonInfo(props) {
     });
   }, [navigation, params]);
 
-  if (!pokemon) return null;
+  useEffect(() => {
+    try {
+      (async () => {
+        const response = await getPokemonInfoApi(params.id);
+        setPokemon(response);
+      })();
+    } catch (error) {
+      console.log(error);
+      navigation.goBack();
+    }
+  }, [params]);
 
-  const pokemonNumber = pokemon.id
-    ? pokemon.id.toString().padStart(3, "0")
-    : "";
+  if (!pokemon) return null;
 
   return (
     <ScrollView>
       <Header
         name={pokemon.name}
-        number={pokemonNumber}
+        number={pokemon.id.toString().padStart(3, "0")}
         image={pokemon.sprites.other.home.front_default}
         types={pokemon.types.map((type) => type.type.name)}
       />

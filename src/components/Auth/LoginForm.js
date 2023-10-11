@@ -4,6 +4,7 @@ import { Card, TextInput, Button } from "react-native-paper";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import { users, usersDetails } from "../../utils/userDB";
+import useAuth from "../../hooks/useAuth";
 
 const validationSchema = Yup.object().shape({
   username: Yup.string()
@@ -13,8 +14,10 @@ const validationSchema = Yup.object().shape({
     .min(8, "Password must be at least 8 characters")
     .max(20, "Password must be at most 20 characters"),
 });
+
 export default function LoginForm() {
   const [error, setError] = useState(null);
+  const { login } = useAuth();
 
   const formik = useFormik({
     initialValues: {
@@ -29,6 +32,8 @@ export default function LoginForm() {
       if (user === password) {
         console.log("Login successful");
         console.log(userDetails);
+        login(userDetails);
+
         setError(null);
       } else {
         console.log("Login failed");

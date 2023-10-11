@@ -46,7 +46,8 @@ const Navigation = () => {
           headerTintColor: "#fff",
           headerTitleStyle: { fontWeight: "bold" },
           headerTitleAlign: "center",
-          headerTitle: "Mi cuenta",
+          headerTitle: "",
+          headerTransparent: true,
         }}
       />
     </Tab.Navigator>
